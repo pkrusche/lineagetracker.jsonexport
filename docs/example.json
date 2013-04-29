@@ -1,0 +1,120 @@
+[
+  // We have one record for each lineage
+  {
+	// the 'lin' key holds general 
+	// information about the lineage
+    "lin": {
+	  // time interval between frames
+	  // (as entered in LineageTracker)
+      "dt": 15.0,
+	  // time axis over all timepoints 
+	  //which have a cell in this lineage
+      "time": [
+        0.0,
+        15.0,
+        // ...
+      ],
+	  // 1-based index into 'time' key:
+	  // lin.time[divisions] gives times 
+	  // when divisions were recorded
+      "divisions": [
+        107
+      ]
+    },
+
+	// The 'cells' key has an entry for
+	// each time a division was marked
+	// and a new daughter cell was
+	// created
+    "cells": [
+	  // first cell in lineage
+      {
+		// a name for this cell
+        "name": "Cell 1"
+		// this will help finding the 
+		// cell in lineagetracker
+        "description": "ID: 4: 1[...]"
+	
+		// time interval between frames
+		// (as entered in 
+		// LineageTracker)
+        "dt": 15.0,
+		// Pixel location of this cell 
+		// in its first frame
+        "first_x": 882.0,
+        "first_y": 44.0,
+		// index of parent cell in 
+		// 'cells' array, or 0 if it is
+		// the first cell in the 
+		// lineage
+        "parent_in_lineage": 0,
+		// id of this cell in lineage
+        "lineage_id": 1,
+		// id of lineage
+        "lineage": 2,
+		// number of channels
+        "nseries": 2,
+		// data contains the 
+		// timeseries, one array 
+		// for each channel
+		// each array should have 
+		// the same number of elements
+        "data": [
+          [
+            12.894736842105264,
+            13.175438596491228,
+            // ...
+          ],
+          [
+            149.82894736842104,
+            169.68421052631578,
+            // ...
+          ]
+        ],
+		// time axis for 'data' key
+        "time": [
+          0.0,
+          15.0,
+          // ...
+        ],
+		// index into lin.time for
+		// when this timeseries starts
+        "start_index": 1,
+		// area of cell in first frame
+        "area": 76.0
+      },
+	  // second cell in lineage
+      {    	
+    	"name": "Cell 1-1"
+  	    "description": "ID: 941 [...]",
+    
+        "dt": 15.0,
+        "first_x": 899.0,
+        "first_y": 161.0,
+		// points to the cell above
+		// (1-based)
+        "parent_in_lineage": 1,
+        "lineage_id": 2,
+        "lineage": 2,
+        "data": [
+          // ... data for this cell
+        ],
+        "parent": 1,
+		// notice the time axis 
+		// starts when this cell 
+		// was created at a divsion
+        "time": [
+          1590.0,
+          1605.0,
+          // ...
+        ],
+		// the division was recorded
+		// at time-point 107
+        "start_index": 107,
+        "area": 80.0,
+        "nseries": 2
+      }
+    ]
+  }, 
+  // ... more lineages to follow
+]
