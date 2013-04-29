@@ -9,7 +9,7 @@ This is a Plugin for [LineageTracker](http://www2.warwick.ac.uk/fac/sci/systemsb
 Binary Installation
 -------------------
 
-The following assumes that you have a working installation of [FijI](http://fiji.sc/) and [LineageTracker](http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/lineagetracker).
+The following assumes that you have a working installation of [FijI](http://fiji.sc/) and [LineageTracker](http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/lineagetracker). The minimum required version of LineageTracker is 1.2.3.
 
 1. JSON export depends on [JSON-Simple](https://code.google.com/p/json-simple/). Here is 
    a link to the JAR file you will need: [http://json-simple.googlecode.com/files/json-simple-1.1.1.jar](http://json-simple.googlecode.com/files/json-simple-1.1.1.jar)

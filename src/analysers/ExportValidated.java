@@ -76,25 +76,28 @@ public class ExportValidated extends AnalysisPlugin {
 				IJ.log("Exporting sum of intensity values.");
 			}
 			
+			File ff = fc.getSelectedFile();
 			String fn = fc.getSelectedFile().getAbsolutePath();
 			
 			if (fc.getFileFilter().getDescription().contains("JSON")) {
 				if (!fn.toLowerCase().endsWith(".json")) {
 					fn = fn + ".json";
+					ff = new File(ff + ".json");
 				}
 				IJ.log("Writing a JSON file.");
 			} else {
 				if (!fn.toLowerCase().endsWith(".csv")) {
 					fn = fn + ".csv";
+					ff = new File(ff + ".csv");
 				}				
 				IJ.log("Writing a CSV file.");
 			}
 			IJ.log("Writing to " + fn);
 			
 			if (fn.endsWith(".csv")) {
-				writeCSV(fc.getSelectedFile());
+				writeCSV(ff);
 			} else if (fn.endsWith(".json")) {
-				writeJSON(fc.getSelectedFile());				
+				writeJSON(ff);				
 			} else {
 				IJ.log("Unknown output format for file name " + fn);
 			}
