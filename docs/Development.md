@@ -58,6 +58,7 @@ git clone git@github.com:pkrusche/lineagetracker.jsonexport.git
 2. Get [JSON-Simple](https://code.google.com/p/json-simple/). Here is 
    a link to the JAR file you will need: [http://json-simple.googlecode.com/files/json-simple-1.1.1.jar](http://json-simple.googlecode.com/files/json-simple-1.1.1.jar), put this file into the `lib` folder.
 3. Fix the class/build path: 
+
    ![ij.jar, json-simple-1.1.1.jar](lineagetracker.jsonexport_classpath.png)
 
 4. This plugin includes a build.xml file (see above), you should change it to copy the output Jar archive to the correct destination (Fiji's plugins folder).
