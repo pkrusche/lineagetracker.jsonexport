@@ -13,7 +13,7 @@ Binary Installation
 1. JSON export depends on [JSON-Simple](https://code.google.com/p/json-simple/). Here is 
    a link to the JAR file you will need: [http://json-simple.googlecode.com/files/json-simple-1.1.1.jar](http://json-simple.googlecode.com/files/json-simple-1.1.1.jar)
    Download this file, and copy it into the FijI/ImageJ plugin directory.
-2. Download [docs/Development.md](blob/master/binaries/LineageTracker_JSONExport.jar), and copy it into the FijI/ImageJ plugin directory.
+2. Download [docs/Development.md](binaries/LineageTracker_JSONExport.jar), and copy it into the FijI/ImageJ plugin directory.
 
 Usage
 -----
@@ -30,9 +30,9 @@ When tracking a lineage is completed, select the first cell, and click 'Validate
 
 ### Output Format
 
-The JSON output format is described in See [docs/example.json](blob/master/docs/example.json). CSV files contain a column for each timepoint, and a set of rows for each channel for each cell in the dataset.
+The JSON output format is described in See [docs/example.json](docs/example.json). CSV files contain a column for each timepoint, and a set of rows for each channel for each cell in the dataset.
 
 Building and Debugging
 ----------------------
 
-See [docs/Development.md](blob/master/docs/Development.md)
+See [docs/Development.md](docs/Development.md)
