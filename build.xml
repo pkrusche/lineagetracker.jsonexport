@@ -1,0 +1,26 @@
+<project name="LineageTracker_JSONExport_" default="main" basedir=".">
+    <description>
+        LineageTracker jar build file
+    </description>
+  <property name="src" location="src" />
+  <property name="build" location="bin" />
+  <property name="dist"  location="dist" />
+ 
+  <!-- set this to the location of your FijI plugins path -->
+	<property name="pluginsDir"  location="$basedir/../../fiji/plugins/" />
+  <property name="user.name" value="Peter Krusche" />
+  <target name="main" depends="compress" description="Main target">
+	<echo>
+		Building the .jar files.
+	</echo>
+ </target>
+ <target name="compress" depends="" description="generate the distribution">
+ 	<jar jarfile="LineageTracker_JSONExport_.jar">
+		<fileset dir="${build}" includes="analysers/**" />
+ 		<manifest>
+ 		    <attribute name="Built-By" value="${user.name}"/>
+ 		</manifest>
+ 	</jar>
+    <copy file="LineageTracker_JSONExport_.jar" toDir="${pluginsDir}" />
+  </target>
+</project>
