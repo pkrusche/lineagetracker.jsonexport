@@ -14,7 +14,7 @@ The following assumes that you have a working installation of [FijI](http://fiji
 1. JSON export depends on [JSON-Simple](https://code.google.com/p/json-simple/). Here is 
    a link to the JAR file you will need: [http://json-simple.googlecode.com/files/json-simple-1.1.1.jar](http://json-simple.googlecode.com/files/json-simple-1.1.1.jar)
    Download this file, and copy it into the FijI/ImageJ plugin directory.
-2. Download [LineageTracker_JSONExport.jar](binaries/LineageTracker_JSONExport.jar), and copy it into the FijI/ImageJ plugin directory.
+2. Download [LineageTracker_JSONExport.jar](https://github.com/pkrusche/lineagetracker.jsonexport/blob/master/binaries/LineageTracker_JSONExport_.jar?raw=true), and copy it into the FijI/ImageJ plugin directory.
 
 Usage
 -----
