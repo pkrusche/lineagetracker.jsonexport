@@ -11,7 +11,7 @@ A LineageTracker
 3. Make an Eclipse project for LineageTracker, and extract the source code into the project folder. Add `src` as a source folder. Fix the classpath to include these Jars:
 
    ![ij.jar, Image5D.jar, Filedrop.jar, Fiji's Jars, and the plugin Jars](lineagetracker_classpath.png)
-4. Add `build.xml` (_change the target paths to Fiji to suit your needs!_) and add an Ant builder to run it:
+4. Add `build.xml` ( _change the target paths to match the location of Fiji on your system!_ ) and add an Ant builder to run it:
 
 ```xml
 <project name="LineageTracker_" default="main" basedir=".">
