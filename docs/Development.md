@@ -6,7 +6,7 @@ This is a brief outline how to debug LineageTracker and this plugin in [Eclipse]
 A LineageTracker
 ----------------
 
-1. Get the LineageTracker source code from [http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/lineagetracker/](http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/lineagetracker/). Also, get Fiji/ImageJ (optionally the source code, though it's not strictly necessary). 
+1. Get the LineageTracker source code from [http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/lineagetracker/](http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/lineagetracker/). Also, get [Fiji/ImageJ](http://fiji.sc/) (optionally the source code, though it's not strictly necessary). 
 2. Get filedrop.jar from [http://iharder.sourceforge.net/current/java/filedrop/](http://iharder.sourceforge.net/current/java/filedrop/)
 3. Make an Eclipse project for LineageTracker, and extract the source code into the project folder. Add `src` as a source folder. Fix the classpath to include these Jars:
 
