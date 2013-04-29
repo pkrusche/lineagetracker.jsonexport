@@ -1,7 +1,7 @@
 LineageTracker and JSON Export Development
 ==========================================
 
-This is a brief outline how to debug LineageTracker and this plugin in [Eclipse](http://www.eclipse.org/).
+This is a brief outline of how to debug LineageTracker and this plugin in [Eclipse](http://www.eclipse.org/).
 
 A LineageTracker
 ----------------
