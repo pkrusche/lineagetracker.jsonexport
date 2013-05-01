@@ -115,10 +115,10 @@ public class ExportValidated extends AnalysisPlugin {
 		String question = ""; 
 		boolean stat = false;
 		if (currentCell.isValidated()) {
-			question = "This cell is marked as validated. Do you really want to remove validation from  this lineage?";
+			question = "This cell is marked as validated. Do you really want to remove validation from  this lineage?  [click 'redraw masks' to display the result]";
 		} else {
 			stat = true;
-			question = "Validate cell?";
+			question = "Validate cell? [click 'redraw masks' to display the result]";
 		}
 		
 		YesNoCancelDialog yncd = new YesNoCancelDialog(null,
@@ -281,6 +281,8 @@ public class ExportValidated extends AnalysisPlugin {
 			FilterValidatedDialog fvd = new FilterValidatedDialog();
 			fvd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			fvd.setCells(cells);
+			
+			boolean doExportPositions = Prefs.get("TrackApp.FilterValidatedDialog.exportPositions", false);
 	
 			for (Cell c : cells) {
 				if (c.isValidated()) {
@@ -335,6 +337,38 @@ public class ExportValidated extends AnalysisPlugin {
 									}
 									bw.write("\n");
 								}
+								if (doExportPositions) {
+									ad = (JSONArray) co.get("frame_position");
+									i = 1;
+									for (@SuppressWarnings("rawtypes")
+									Iterator itad = ad.iterator(); itad
+											.hasNext();) {
+										JSONArray da = (JSONArray) itad.next();
+										int end = start + da.size() - 1;
+										bw.write("" + nlin);
+										bw.write(sep + name);
+										bw.write(sep + start);
+										bw.write(sep + end);
+										bw.write(sep + firstx);
+										bw.write(sep + firsty);
+										bw.write(sep + carea);
+										bw.write(sep + ((start-1)*dt));
+										bw.write(sep + ((end-1)*dt));
+										bw.write(sep + "Position " + i + prefix);
+										
+										i++;
+										for (@SuppressWarnings("rawtypes")
+										Iterator itda = da.iterator(); itda
+												.hasNext();) {
+											bw.write(sep + itda.next().toString());
+										}
+										for (int k = end+1; k <= maxframe; ++k) {
+											bw.write(sep + "0");
+										}
+										bw.write("\n");
+									}									
+								}
+									
 								++cellsWritten;
 							}
 							++linsWritten;
@@ -467,6 +501,34 @@ public class ExportValidated extends AnalysisPlugin {
 		}
 		return a;
 	}
+	/**
+	 * Collect frame positions for a cell into a 2D-array
+	 * @param c
+	 * @return 2-D array with x and y positions
+	 */
+	@SuppressWarnings("unchecked")
+	private JSONArray makeCellPositions(Cell c) {
+		JSONArray [] pos = new JSONArray [2];
+		
+		pos[0] = new JSONArray();
+		pos[1] = new JSONArray();
+		
+		while (c != null) {
+			double xx = c.getX();
+			double yy = c.getY();
+
+			pos[0].add(new Double(xx));
+			pos[1].add(new Double(yy));
+
+			c = c.getNextCell();
+		}
+		
+		JSONArray a = new JSONArray();
+		for (int i = 0; i < pos.length; i++) {
+			a.add(pos[i]);
+		}
+		return a;
+	}
 	
 	/**
 	 * Make the data array for a given cell
@@ -483,6 +545,7 @@ public class ExportValidated extends AnalysisPlugin {
 		}
 		
 		JSONArray [] q = new JSONArray [c.getIntensity().length];
+		
 		for (int i = 0; i < q.length; i++) {
 			q[i] = new JSONArray();
 		}
@@ -523,6 +586,7 @@ public class ExportValidated extends AnalysisPlugin {
 		o.put("start_index", c.getFrame());
 		o.put("nseries", new Integer(c.getIntensity().length));
 		o.put("data", makeCellData(c));
+		o.put("frame_position", makeCellPositions(c));		
 		o.put("description", c.toString());
 		o.put("first_x", c.getX());
 		o.put("first_y", c.getY());

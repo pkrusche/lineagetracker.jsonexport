@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,7 +30,6 @@ import javax.swing.border.EmptyBorder;
 import org.json.simple.JSONArray;
 
 import util.Cell;
-import java.awt.GridLayout;
 
 /** 
  * Copyright 2013 University of Warwick
@@ -64,9 +64,11 @@ public class FilterValidatedDialog extends JDialog {
 	private static int valStartLin  = -1;
 	private static int valMinLinLen = -1;
 	private static int doExportMean = 1;
+	private boolean doExportPositions = false;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnExportMeanIntensity;
 	private JRadioButton rdbtnExportMaxIntensity;
+	private JCheckBox chckbxExportPositions;
 	
 	/**
 	 * Launch the application.
@@ -200,17 +202,41 @@ public class FilterValidatedDialog extends JDialog {
 			gbc_panel.gridx = 1;
 			gbc_panel.gridy = 4;
 			contentPanel.add(panel, gbc_panel);
-			panel.setLayout(new GridLayout(1, 2, 0, 0));
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{69, 169, 162, 0};
+			gbl_panel.rowHeights = new int[]{23, 23, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
 			{
 				rdbtnExportMeanIntensity = new JRadioButton("Export Mean Intensity");
 				rdbtnExportMeanIntensity.setSelected(true);
 				buttonGroup.add(rdbtnExportMeanIntensity);
-				panel.add(rdbtnExportMeanIntensity);
+				GridBagConstraints gbc_rdbtnExportMeanIntensity = new GridBagConstraints();
+				gbc_rdbtnExportMeanIntensity.anchor = GridBagConstraints.NORTHWEST;
+				gbc_rdbtnExportMeanIntensity.insets = new Insets(0, 0, 5, 5);
+				gbc_rdbtnExportMeanIntensity.gridx = 1;
+				gbc_rdbtnExportMeanIntensity.gridy = 0;
+				panel.add(rdbtnExportMeanIntensity, gbc_rdbtnExportMeanIntensity);
 			}
 			{
 				rdbtnExportMaxIntensity = new JRadioButton("Export Max Intensity");
 				buttonGroup.add(rdbtnExportMaxIntensity);
-				panel.add(rdbtnExportMaxIntensity);
+				GridBagConstraints gbc_rdbtnExportMaxIntensity = new GridBagConstraints();
+				gbc_rdbtnExportMaxIntensity.anchor = GridBagConstraints.NORTHWEST;
+				gbc_rdbtnExportMaxIntensity.insets = new Insets(0, 0, 5, 0);
+				gbc_rdbtnExportMaxIntensity.gridx = 2;
+				gbc_rdbtnExportMaxIntensity.gridy = 0;
+				panel.add(rdbtnExportMaxIntensity, gbc_rdbtnExportMaxIntensity);
+			}
+			{
+				chckbxExportPositions = new JCheckBox("Export Cell Positions in CSV");
+				GridBagConstraints gbc_chckbxExportPositions = new GridBagConstraints();
+				gbc_chckbxExportPositions.anchor = GridBagConstraints.NORTH;
+				gbc_chckbxExportPositions.gridwidth = 2;
+				gbc_chckbxExportPositions.gridx = 1;
+				gbc_chckbxExportPositions.gridy = 1;
+				panel.add(chckbxExportPositions, gbc_chckbxExportPositions);
 			}
 		}
 		{
@@ -225,6 +251,7 @@ public class FilterValidatedDialog extends JDialog {
 							Prefs.set("TrackApp.FilterValidatedDialog.startLin", valStartLin);
 							Prefs.set("TrackApp.FilterValidatedDialog.minLinLen", valMinLinLen);
 							Prefs.set("TrackApp.FilterValidatedDialog.exportMean", doExportMean);
+							Prefs.set("TrackApp.FilterValidatedDialog.exportPositions", doExportPositions);
 							Prefs.savePreferences();
 							dispose();
 						}
@@ -259,6 +286,9 @@ public class FilterValidatedDialog extends JDialog {
 		valStartLin = Prefs.getInt(".TrackApp.FilterValidatedDialog.startLin", valStartLin);
 		valMinLinLen = Prefs.getInt(".TrackApp.FilterValidatedDialog.minLinLen", valMinLinLen);
 		doExportMean = Prefs.getInt(".TrackApp.FilterValidatedDialog.exportMean", doExportMean);
+		doExportPositions = Prefs.get("TrackApp.FilterValidatedDialog.exportPositions", false);
+		
+		getChckbxExportPositions().setSelected(doExportPositions);
 		
 		startLin.setText(""+valStartLin);
 		minLinLen.setText(""+valMinLinLen);
@@ -284,7 +314,9 @@ public class FilterValidatedDialog extends JDialog {
 			IJ.showMessage("Please enter numeric values for the minimum length / frame values.");
 			valid = false;
 		}
-		doExportMean = getRdbtnExportMeanIntensity().isSelected() ? 1 : 0; 
+		doExportMean = getRdbtnExportMeanIntensity().isSelected() ? 1 : 0;
+		doExportPositions = getChckbxExportPositions().isSelected();
+		
 		return valid;
 	}
 	
@@ -381,5 +413,8 @@ public class FilterValidatedDialog extends JDialog {
 	}
 	protected JRadioButton getRdbtnExportMaxIntensity() {
 		return rdbtnExportMaxIntensity;
+	}
+	protected JCheckBox getChckbxExportPositions() {
+		return chckbxExportPositions;
 	}
 }
