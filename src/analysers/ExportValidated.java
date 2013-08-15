@@ -366,7 +366,32 @@ public class ExportValidated extends AnalysisPlugin {
 											bw.write(sep + "0");
 										}
 										bw.write("\n");
-									}									
+									}
+									
+									/** write areas too */
+									JSONArray da = (JSONArray) co.get("frame_area");
+									int end = start + da.size() - 1;
+									bw.write("" + nlin);
+									bw.write(sep + name);
+									bw.write(sep + start);
+									bw.write(sep + end);
+									bw.write(sep + firstx);
+									bw.write(sep + firsty);
+									bw.write(sep + carea);
+									bw.write(sep + ((start-1)*dt));
+									bw.write(sep + ((end-1)*dt));
+									bw.write(sep + "Area" + prefix);
+									
+									i++;
+									for (@SuppressWarnings("rawtypes")
+									Iterator itda = da.iterator(); itda
+											.hasNext();) {
+										bw.write(sep + itda.next().toString());
+									}
+									for (int k = end+1; k <= maxframe; ++k) {
+										bw.write(sep + "0");
+									}
+									bw.write("\n");
 								}
 									
 								++cellsWritten;
@@ -501,6 +526,7 @@ public class ExportValidated extends AnalysisPlugin {
 		}
 		return a;
 	}
+
 	/**
 	 * Collect frame positions for a cell into a 2D-array
 	 * @param c
@@ -526,6 +552,25 @@ public class ExportValidated extends AnalysisPlugin {
 		JSONArray a = new JSONArray();
 		for (int i = 0; i < pos.length; i++) {
 			a.add(pos[i]);
+		}
+		return a;
+	}
+	
+	/**
+	 * Collect areas for cell in each frame
+	 * @param c
+	 * @return 1-D array with areas 
+	 */
+	@SuppressWarnings("unchecked")
+	private JSONArray makeCellAreas(Cell c) {
+		JSONArray a = new JSONArray();
+		
+		while (c != null) {
+			double ar = c.getArea();
+
+			a.add(new Double(ar));
+
+			c = c.getNextCell();
 		}
 		return a;
 	}
@@ -587,6 +632,7 @@ public class ExportValidated extends AnalysisPlugin {
 		o.put("nseries", new Integer(c.getIntensity().length));
 		o.put("data", makeCellData(c));
 		o.put("frame_position", makeCellPositions(c));		
+		o.put("frame_area", makeCellAreas(c));		
 		o.put("description", c.toString());
 		o.put("first_x", c.getX());
 		o.put("first_y", c.getY());

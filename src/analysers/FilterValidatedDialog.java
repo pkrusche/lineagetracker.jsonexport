@@ -230,7 +230,7 @@ public class FilterValidatedDialog extends JDialog {
 				panel.add(rdbtnExportMaxIntensity, gbc_rdbtnExportMaxIntensity);
 			}
 			{
-				chckbxExportPositions = new JCheckBox("Export Cell Positions in CSV");
+				chckbxExportPositions = new JCheckBox("Export Cell Positions and Areas in CSV");
 				GridBagConstraints gbc_chckbxExportPositions = new GridBagConstraints();
 				gbc_chckbxExportPositions.anchor = GridBagConstraints.NORTH;
 				gbc_chckbxExportPositions.gridwidth = 2;
